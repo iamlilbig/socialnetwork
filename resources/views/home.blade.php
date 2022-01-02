@@ -48,19 +48,18 @@
 
 
     <div class="row justify-content-center">
-        @for($i =1 ;$i<=10;$i++)
+        @foreach($feeds as $feed)
             <div class="col-md-5 mx-lg-2 my-3 mg-3">
                 <div class="card shadow-sm">
-                    <img src="{{ asset('/image/num1.jpg') }}" alt="image" class="img-thumbnail">
+                    <img src="{{ $feed->image }}" alt="{{ $feed->description }}" class="img-thumbnail">
                     <div class="card-body">
                         <p class="fw-bolder">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, culpa cupiditate deserunt eligendi facere libero
-                            molestias obcaecati officia sunt voluptate. Atque consequuntur cupiditate ex excepturi id iste quasi repudiandae tempore.
+                            {{ $feed->description }}
                         </p>
                         <div class="row justify-content-center">
                             <div class="col-md-6">
                                 <span class="float-start">
-                                    published by lilbig
+                                    published by {{ $feed->user->name }}
                                 </span>
                             </div>
                             <div class="col-md-6">
@@ -78,7 +77,7 @@
                     </div>
                 </div>
             </div>
-        @endfor
+        @endforeach
     </div>
 </div>
 @endsection
