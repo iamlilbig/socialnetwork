@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Feed;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class FeedController extends Controller
 {
@@ -16,11 +18,13 @@ class FeedController extends Controller
     {
         $this->validate($request,[
            'image' => 'required | max:10000',
-            'description' => 'string | max:200'
+            'description' => 'max:200'
         ]);
+        $image = $request->file('image')->store('feed');
         $feed = new Feed();
-        $feed->image = $request->file('image')->store('image');
+        $feed->image = Storage::url($image);
         $feed->description = $request->description;
+        $feed->user_id = Auth::user()->id;
         if($feed->save()){
             return back();
         }else{
